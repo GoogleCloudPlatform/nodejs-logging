@@ -616,6 +616,30 @@ describe('Logging', () => {
       await logging.getEntries(options);
     });
 
+    it('should not push project id if include logging bucket view', async () => {
+      const options = {
+        resourceNames: [
+          'projects/' +
+            logging.projectId +
+            '/locations/global/buckets/test-bucket/views/test-view',
+        ],
+      };
+
+      logging.loggingService.listLogEntries = async (
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        reqOpts: any
+      ) => {
+        assert.deepStrictEqual(reqOpts.resourceNames, [
+          'projects/' +
+            logging.projectId +
+            '/locations/global/buckets/test-bucket/views/test-view',
+        ]);
+        return [[]];
+      };
+
+      await logging.getEntries(options);
+    });
+
     describe('error', () => {
       const error = new Error('Error.');
 

@@ -593,9 +593,13 @@ class Logging {
     reqOpts.resourceNames = arrify(reqOpts.resourceNames!);
     this.projectId = await this.auth.getProjectId();
     const resourceName = 'projects/' + this.projectId;
-    if (reqOpts.resourceNames.indexOf(resourceName) === -1) {
-      reqOpts.resourceNames.push(resourceName);
-    }
+    const isReadFromBucket = reqOpts.resourceNames.some(resourceName =>
+      resourceName.startsWith(resourceName)
+    );
+    if (
+      reqOpts.resourceNames.indexOf(resourceName) === -1 &&
+      !isReadFromBucket
+    ) {
     delete reqOpts.autoPaginate;
     delete reqOpts.gaxOptions;
     let gaxOptions = extend(
