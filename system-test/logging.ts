@@ -445,6 +445,7 @@ describe('Logging', () => {
           );
           clearInterval(logInterval);
           stream.end();
+          done();
         })
         .on('end', done);
     });
@@ -498,6 +499,7 @@ describe('Logging', () => {
           .once('data', () => {
             clearInterval(logInterval);
             stream.end();
+            done();
           })
           .on('end', done);
       });
