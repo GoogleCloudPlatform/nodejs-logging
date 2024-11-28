@@ -587,6 +587,8 @@ describe('metadata', () => {
 
     it('should return the correct descriptor for Cloud Functions', async () => {
       const FUNCTION_NAME = (process.env.FUNCTION_NAME = 'function-name');
+      const K_SERVICE = (process.env.K_SERVICE = 'k-service');
+      const K_REVISION = (process.env.K_REVISION = 'k-revision');
 
       const fakeAuth = {
         async getEnv() {
@@ -595,12 +597,20 @@ describe('metadata', () => {
       };
 
       const sc1 = await metadata.detectServiceContext(fakeAuth);
-      assert.deepStrictEqual(sc1, {service: FUNCTION_NAME});
+      assert.deepStrictEqual(sc1, {service: K_SERVICE, version: K_REVISION});
+
+      delete process.env.K_SERVICE;
+      const sc2 = await metadata.detectServiceContext(fakeAuth);
+      assert.deepStrictEqual(sc2, {
+        service: FUNCTION_NAME,
+        version: K_REVISION,
+      });
     });
 
     it('should return the correct descriptor for Cloud Run', async () => {
       process.env.K_CONFIGURATION = 'hello-world';
       const SERVICE_NAME = (process.env.K_SERVICE = 'hello-world');
+      const SERVICE_VERSION = (process.env.K_REVISION = 'hello-world.1');
 
       const fakeAuth = {
         async getEnv() {
@@ -609,10 +619,14 @@ describe('metadata', () => {
       };
 
       const sc1 = await metadata.detectServiceContext(fakeAuth);
-      assert.deepStrictEqual(sc1, {service: SERVICE_NAME});
+      assert.deepStrictEqual(sc1, {
+        service: SERVICE_NAME,
+        version: SERVICE_VERSION,
+      });
 
       delete process.env['K_CONFIGURATION'];
       delete process.env['K_SERVICE'];
+      delete process.env['K_REVISION'];
     });
 
     it('should return the correct descriptor for GKE', async () => {

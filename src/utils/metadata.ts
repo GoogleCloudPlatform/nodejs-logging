@@ -222,7 +222,8 @@ export async function detectServiceContext(
       };
     case GCPEnv.CLOUD_FUNCTIONS:
       return {
-        service: process.env.FUNCTION_NAME,
+        service: process.env.K_SERVICE || process.env.FUNCTION_NAME,
+        version: process.env.K_REVISION,
       };
     // On Kubernetes we use the pod-name to describe the service. Currently,
     // we acquire the pod-name from within the pod through env var `HOSTNAME`.
@@ -233,6 +234,7 @@ export async function detectServiceContext(
     case GCPEnv.CLOUD_RUN:
       return {
         service: process.env.K_SERVICE,
+        version: process.env.K_REVISION,
       };
     case GCPEnv.COMPUTE_ENGINE:
       return null;
