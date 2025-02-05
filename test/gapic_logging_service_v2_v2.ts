@@ -1,4 +1,4 @@
-// Copyright 2024 Google LLC
+// Copyright 2025 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -334,7 +334,7 @@ describe('v2.LoggingServiceV2Client', () => {
         ['logName']
       );
       request.logName = defaultValue1;
-      const expectedHeaderRequestParams = `log_name=${defaultValue1}`;
+      const expectedHeaderRequestParams = `log_name=${defaultValue1 ?? ''}`;
       const expectedResponse = generateSampleMessage(
         new protos.google.protobuf.Empty()
       );
@@ -365,7 +365,7 @@ describe('v2.LoggingServiceV2Client', () => {
         ['logName']
       );
       request.logName = defaultValue1;
-      const expectedHeaderRequestParams = `log_name=${defaultValue1}`;
+      const expectedHeaderRequestParams = `log_name=${defaultValue1 ?? ''}`;
       const expectedResponse = generateSampleMessage(
         new protos.google.protobuf.Empty()
       );
@@ -412,7 +412,7 @@ describe('v2.LoggingServiceV2Client', () => {
         ['logName']
       );
       request.logName = defaultValue1;
-      const expectedHeaderRequestParams = `log_name=${defaultValue1}`;
+      const expectedHeaderRequestParams = `log_name=${defaultValue1 ?? ''}`;
       const expectedError = new Error('expected');
       client.innerApiCalls.deleteLog = stubSimpleCall(undefined, expectedError);
       await assert.rejects(client.deleteLog(request), expectedError);
@@ -1080,7 +1080,7 @@ describe('v2.LoggingServiceV2Client', () => {
         ['parent']
       );
       request.parent = defaultValue1;
-      const expectedHeaderRequestParams = `parent=${defaultValue1}`;
+      const expectedHeaderRequestParams = `parent=${defaultValue1 ?? ''}`;
       const expectedResponse = [new String(), new String(), new String()];
       client.innerApiCalls.listLogs = stubSimpleCall(expectedResponse);
       const [response] = await client.listLogs(request);
@@ -1109,7 +1109,7 @@ describe('v2.LoggingServiceV2Client', () => {
         ['parent']
       );
       request.parent = defaultValue1;
-      const expectedHeaderRequestParams = `parent=${defaultValue1}`;
+      const expectedHeaderRequestParams = `parent=${defaultValue1 ?? ''}`;
       const expectedResponse = [new String(), new String(), new String()];
       client.innerApiCalls.listLogs =
         stubSimpleCallWithCallback(expectedResponse);
@@ -1151,7 +1151,7 @@ describe('v2.LoggingServiceV2Client', () => {
         ['parent']
       );
       request.parent = defaultValue1;
-      const expectedHeaderRequestParams = `parent=${defaultValue1}`;
+      const expectedHeaderRequestParams = `parent=${defaultValue1 ?? ''}`;
       const expectedError = new Error('expected');
       client.innerApiCalls.listLogs = stubSimpleCall(undefined, expectedError);
       await assert.rejects(client.listLogs(request), expectedError);
@@ -1179,7 +1179,7 @@ describe('v2.LoggingServiceV2Client', () => {
         ['parent']
       );
       request.parent = defaultValue1;
-      const expectedHeaderRequestParams = `parent=${defaultValue1}`;
+      const expectedHeaderRequestParams = `parent=${defaultValue1 ?? ''}`;
       const expectedResponse = [new String(), new String(), new String()];
       client.descriptors.page.listLogs.createStream =
         stubPageStreamingCall(expectedResponse);
@@ -1226,7 +1226,7 @@ describe('v2.LoggingServiceV2Client', () => {
         ['parent']
       );
       request.parent = defaultValue1;
-      const expectedHeaderRequestParams = `parent=${defaultValue1}`;
+      const expectedHeaderRequestParams = `parent=${defaultValue1 ?? ''}`;
       const expectedError = new Error('expected');
       client.descriptors.page.listLogs.createStream = stubPageStreamingCall(
         undefined,
@@ -1274,7 +1274,7 @@ describe('v2.LoggingServiceV2Client', () => {
         ['parent']
       );
       request.parent = defaultValue1;
-      const expectedHeaderRequestParams = `parent=${defaultValue1}`;
+      const expectedHeaderRequestParams = `parent=${defaultValue1 ?? ''}`;
       const expectedResponse = [new String(), new String(), new String()];
       client.descriptors.page.listLogs.asyncIterate =
         stubAsyncIterationCall(expectedResponse);
@@ -1312,7 +1312,7 @@ describe('v2.LoggingServiceV2Client', () => {
         ['parent']
       );
       request.parent = defaultValue1;
-      const expectedHeaderRequestParams = `parent=${defaultValue1}`;
+      const expectedHeaderRequestParams = `parent=${defaultValue1 ?? ''}`;
       const expectedError = new Error('expected');
       client.descriptors.page.listLogs.asyncIterate = stubAsyncIterationCall(
         undefined,
